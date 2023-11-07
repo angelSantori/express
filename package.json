@@ -1,0 +1,23 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "Utilizacion de express para apis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelSantori/express.git"
+  },
+  "keywords": [
+    "npm",
+    "nodejs"
+  ],
+  "author": "Manuel Antonio Campa Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelSantori/express/issues"
+  },
+  "homepage": "https://github.com/angelSantori/express#readme"
+}
