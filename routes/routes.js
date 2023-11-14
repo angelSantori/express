@@ -62,6 +62,65 @@ const router = app => {
             response.send('User deleted');
         });
     });
+
+    //----------------------------------------------------------------------Productos
+    //Mostrar todos los productos
+    app.get('/products', (request, response) => {
+        pool.query('SELECT * FROM products', 
+        (error, result) => {
+            if (error) throw error;
+
+            response.send(result);
+        });
+    });
+
+    //Mostrar un solo producto por ID
+    app.get('/products/:id', (request, response) => {
+        const id = request.params.id;
+
+        pool.query('SELECT * FROM products WHERE idproduct = ?', id, (error, result) => {
+            if (error) throw error;
+
+            response.send(result);
+        });
+    });
+
+    //Agregar un nuevo producto
+    app.post('/products', (request, response) => {
+        pool.query('INSERT INTO products SET ?', request.body, (error, result) => {
+            if (error) throw error;
+
+            response.status(201).send(`Product added with ID: ${result.insertID}`);
+        });
+    });
+    
+    //Actualizar un producto existente
+    app.put('/products/:id', (request, response) => {
+        const id = request.params.id;
+
+        pool.query('UPDATE products SET ? WHERE idproduct = ?', [request.body[0], id], (error, result) => {
+            if (error) throw error;
+
+            response.send('Product updated successfully');
+        });
+    });
+
+    //Eliminar un producto
+    app.delete('/products/:id', (request, response) => {
+        const id = request.params.id;
+
+        pool.query('DELETE FROM products WHERE idproduct = ?', id, (error, result) => {
+            if (error) throw error;
+
+            response.send('Product deleted');
+        });
+    });
+    //----------------------------------------------------------------------/Productos
+
+    //----------------------------------------------------------------------Ventas
+    
+
+    //----------------------------------------------------------------------/Ventas
 }
 
 //Exportar el router
