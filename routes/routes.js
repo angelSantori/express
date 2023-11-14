@@ -118,8 +118,57 @@ const router = app => {
     //----------------------------------------------------------------------/Productos
 
     //----------------------------------------------------------------------Ventas
-    
+    //Mostrar todas las ventas
+    app.get('/ventas', (request, response) => {
+        pool.query('SELECT * FROM ventas', 
+        (error, result) => {
+            if (error) throw error;
 
+            response.send(result);
+        });
+    });
+
+    //Mostrar una sola venta por ID
+    app.get('/ventas/:id', (request, response) => {
+        const id = request.params.id;
+
+        pool.query('SELECT * FROM ventas WHERE idventa = ?', id, (error, result) => {
+            if (error) throw error;
+
+            response.send(result);
+        });
+    });
+
+    //Agregar una nueva venta
+    app.post('/ventas', (request, response) => {
+        pool.query('INSERT INTO ventas SET ?', request.body, (error, result) => {
+            if (error) throw error;
+
+            response.status(201).send(`Venta added with ID: ${result.insertID}`);
+        });
+    });
+
+    //Actualizar una venta existente
+    app.put('/ventas/:id', (request, response) => {
+        const id = request.params.id;
+
+        pool.query('UPDATE ventas SET ? WHERE idventa = ?', [request.body[0], id], (error, result) => {
+            if (error) throw error;
+
+            response.send('Product updated successfully');
+        });
+    });
+
+    //Eliminar una venta
+    app.delete('/ventas/:id', (request, response) => {
+        const id = request.params.id;
+
+        pool.query('DELETE FROM ventas WHERE idventa = ?', id, (error, result) => {
+            if (error) throw error;
+
+            response.send('Product deleted');
+        });
+    });
     //----------------------------------------------------------------------/Ventas
 }
 
